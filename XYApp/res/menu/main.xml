@@ -8,5 +8,10 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never"/>
-
+    
+      <item android:id="@+id/statusPosten"
+          android:icon="@drawable/ic_status_posten"
+          android:title="@string/statusPosten" 
+          android:showAsAction="always"/>
+      
 </menu>

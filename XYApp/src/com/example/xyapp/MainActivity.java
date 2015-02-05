@@ -3,9 +3,14 @@ package com.example.xyapp;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.os.Build;
+
+
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -21,10 +26,33 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_main);
+        setContentView(R.layout.activity_main);
         setUpMapIfNeeded();
         location();
                 }
+    
+	public boolean onCreateOptionsMenu(Menu menu) {
+
+		// Inflate the menu; this adds items to the action bar if it is present.
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.main, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.statusPosten:
+            	statusPosten();
+            	break;}
+                return true;
+                }
+    
+    public void statusPosten(){	
+    	Intent i = new Intent(this, StatusPosten.class);
+    	startActivityForResult(i, 0);
+    }
+    
     @Override
 	protected void onResume() {
 		super.onResume();
@@ -55,21 +83,9 @@ public class MainActivity extends Activity {
 		markerOptions.title(latLng.latitude + " : " + latLng.longitude);
 		mMap.clear();
 		mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-		mMap.addMarker(markerOptions);}
+		mMap.addMarker(markerOptions.draggable(true));}
 		});
 	
-	/*@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.gmap_test, menu);
-		return true;
-	}*/
-
-
-
-
-  
-
-	}
+  	}
     }
 
