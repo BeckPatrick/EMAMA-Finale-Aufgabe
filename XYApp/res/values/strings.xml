@@ -5,7 +5,12 @@
     <string name="statusPosten">Status Posten</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="name_eingeben">Geb deinen Namen ein</string><string name="foto_hinzufuegen">Foto hinzufügen</string><string name="kommentar">Füge ein Kommentar hinzu</string><string name="senden">Senden</string><string name="title_activity_status_posten">StatusPosten</string>
+    <string name="name_eingeben">Geb deinen Namen ein</string>
+    <string name="foto_hinzufuegen">Foto hinzufügen</string>
+    <string name="kommentar">Füge ein Kommentar hinzu</string>
+    <string name="senden">Senden</string>
+    <string name="title_activity_status_posten">StatusPosten</string>
+    <string name="name1">Name:</string>
     
     
     

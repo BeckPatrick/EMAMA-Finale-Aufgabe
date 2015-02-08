@@ -4,12 +4,27 @@ package com.example.xyapp;
 
 
 
+import java.sql.Blob;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -20,30 +35,51 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class StatusPosten extends Activity {
 	
-	private String nutzerName;
+	private String name;
 	private String kommentar;
 	private EditText editName;
 	private EditText editKommentar;
 	private Button fotoHinzufuegen;
 	private static int RESULT_LOAD_IMAGE = 1;
-	private Uri uriData;
+	private Blob uriData;
+	double mlong;
+	double mlat;
+	private ProgressDialog pDialog;
+	private static String url_saveStatus = "http://halloooo.byethost15.com/create.php";
+	
+	private static final String TAG_SUCCESS = "success";
+	
+	   /* private static final Blob TAG_BILD = ;
+	    private static final double TAG_STANDORTLA = ":standordla";
+	    private static final double TAG_STANDORTLO = ":standortlo";*/
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_status_posten);
 	
-		fotoHinzufuegen=(Button) findViewById(R.id.foto);	
+		fotoHinzufuegen=(Button) findViewById(R.id.foto);
+		
+		
+
+		
+		/*LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE); 
+		Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+		mlong = location.getLongitude();
+		mlat = location.getLatitude();*/
+		
 		fotoHinzufuegen.setOnClickListener(new View.OnClickListener() {
 
 		public void onClick(View v) {
 		openPicture();
 		}
 	});}
+	
 	
 
 	@Override
@@ -53,12 +89,14 @@ public class StatusPosten extends Activity {
 		inflater.inflate(R.menu.status_posten, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
+	
+	
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		 switch (item.getItemId()) {
          case R.id.senden:
-         	statusSenden();
+        	new SaveStatusPosten().execute();
          	break;}
              return true;
              }
@@ -78,7 +116,7 @@ public class StatusPosten extends Activity {
 		if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK
 				&& null != data) {
 			Uri selectedImage = data.getData();
-			uriData = selectedImage;
+			uriData = (Blob) selectedImage;
 			String[] filePathColumn = { MediaStore.Images.Media.DATA };
 			Log.i("open" + "", MediaStore.Images.Media.DATA);
 
@@ -94,16 +132,73 @@ public class StatusPosten extends Activity {
 					"Bild gespeichert", Toast.LENGTH_SHORT).show();
 		}}
 		
-	public void statusSenden(){
-		
-		editName = (EditText) findViewById(R.id.name);
-		nutzerName = editName.getText().toString().trim();
-		
-		editKommentar = (EditText) findViewById(R.id.kommentar);
-		kommentar = editKommentar.getText().toString().trim();
-		
-		
-		
-		
-	}
+	JSONParser jsonParser = new JSONParser();
+	
+	class SaveStatusPosten extends AsyncTask<String, String, String> {
+		 
+        
+          //Before starting background thread Show Progress Dialog
+      
+        @Override
+        protected void onPreExecute() {
+        	 super.onPreExecute();
+             pDialog = new ProgressDialog(StatusPosten.this);
+             pDialog.setMessage("Speichere Status..");
+             pDialog.setIndeterminate(false);
+             pDialog.setCancelable(true);
+             pDialog.show();
+        }
+ 
+        
+         //Saving product
+      
+        protected String doInBackground(String... args) {
+ 
+        	editName = (EditText) findViewById(R.id.name);
+    		name = editName.getText().toString().trim();
+    		
+    		editKommentar = (EditText) findViewById(R.id.kommentar);
+    		kommentar = editKommentar.getText().toString().trim();
+ 
+            // Building Parameters
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("user", name));
+            params.add(new BasicNameValuePair("kommentar", kommentar));
+            /*params.add(new BasicNameValuePair(TAG_BILD, uriData));
+            params.add(new BasicNameValuePair(TAG_STANDORTLO, mlong));
+            params.add(new BasicNameValuePair(TAG_STANDORTLA, mlat));*/
+
+            // sending modified data through http request
+            // Notice that update product url accepts POST method
+            JSONObject json = jsonParser.makeHttpRequest(url_saveStatus,
+                    "POST", params);
+            
+            Log.d("Create Response", json.toString());
+ 
+            // check json success tag
+            try {
+                int success = json.getInt(TAG_SUCCESS);
+ 
+                if (success == 1) {
+                    // successfully updated
+                    
+                    
+                } else{
+                	
+                
+                                    }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+ 
+            return null;
+        }
+ 
+        //After completing background task Dismiss the progress dialog
+
+        protected void onPostExecute(String file_url) {
+            // dismiss the dialog once product updated
+        	pDialog.dismiss();
+        }	
 }
+	}

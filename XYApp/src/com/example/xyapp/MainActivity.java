@@ -3,7 +3,12 @@ package com.example.xyapp;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.app.Activity;
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -71,7 +76,7 @@ public class MainActivity extends Activity {
 		}
 	} // setUpMapIfNeeded
 	private void setUpMap() {
-		/*mMap.addMarker(new MarkerOptions().position(new LatLng(54.0, 11.0)).title("GMap V2").draggable(true));*/		
+			
 		
 	
 	mMap.setOnMapClickListener(new OnMapClickListener() {
@@ -85,7 +90,13 @@ public class MainActivity extends Activity {
 		mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
 		mMap.addMarker(markerOptions.draggable(true));}
 		});
+	}
+
+
+		
+	}
 	
-  	}
-    }
+	
+  	
+    
 
