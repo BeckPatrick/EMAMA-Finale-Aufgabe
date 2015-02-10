@@ -29,4 +29,35 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#ffffff" />
 
+    <TextView
+        android:id="@+id/anzeigeKommentarInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/anzeigeKommentar"
+        android:textColor="#ffffff"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/anzeigeKommentar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:text="@string/anzeigeKommentar"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#ffffff" />
+
+    <Button
+        android:id="@+id/foto_anzeigen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/userName"
+        android:layout_marginTop="65dp"
+        android:text="@string/foto_anzeigen"
+         android:textColor="#ffffff"/> />
+	
 </RelativeLayout>

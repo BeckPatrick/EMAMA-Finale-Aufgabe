@@ -50,6 +50,10 @@
             android:name=".StatusPosten"
             android:label="@string/title_activity_status_posten" >
         </activity>
+        <activity
+            android:name=".StatusAnzeigen"
+            android:label="@string/title_activity_status_anzeigen" >
+        </activity>
     </application>
 
 </manifest>

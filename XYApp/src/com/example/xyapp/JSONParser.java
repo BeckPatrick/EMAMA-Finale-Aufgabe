@@ -25,7 +25,8 @@ import org.json.JSONObject;
 import android.util.Log;
 	 
 	public class JSONParser {
-	 
+		
+		static final String tag ="JSONParser";
 	    static InputStream is = null;
 	    static JSONObject jObj = null;
 	    public String json = "";
@@ -44,7 +45,7 @@ import android.util.Log;
 	        try {
 	 
 	            // check for request method
-	            if(method == "POST"){
+	            if(method.equalsIgnoreCase("Post")){
 	                // request method is POST
 	                // defaultHttpClient
 	                DefaultHttpClient httpClient = new DefaultHttpClient();
@@ -55,13 +56,15 @@ import android.util.Log;
 	                HttpEntity httpEntity = httpResponse.getEntity();
 	                is = httpEntity.getContent();
 	 
-	            }else if(method == "GET"){
+	            }else if(method.equalsIgnoreCase("GET")){
 	                // request method is GET
 	                DefaultHttpClient httpClient = new DefaultHttpClient();
+	                if(params != null){
 	                String paramString = URLEncodedUtils.format(params, "utf-8");
-	                url += "?" + paramString;
+	                url += "?" + paramString;}
+	                Log.v(tag, url);
 	                HttpGet httpGet = new HttpGet(url);
-	 
+	                	
 	                HttpResponse httpResponse = httpClient.execute(httpGet);
 	                HttpEntity httpEntity = httpResponse.getEntity();
 	                is = httpEntity.getContent();
@@ -91,10 +94,30 @@ import android.util.Log;
 	 
 	        // try parse the string to a JSON object
 	        try {
-	            jObj = new JSONObject(json);
+	            /*jObj = new JSONObject(json);
 	        } catch (JSONException e) {
 	            Log.e("JSON Parser", "Error parsing data " + e.toString());
-	        }
+	        }*/
+	            jObj = new JSONObject(json.substring(json.indexOf("{"), json.lastIndexOf("}") + 1));
+	        } catch (Exception e0) {
+	            Log.e("JSON Parser0", "Error parsing data [" + e0.getMessage()+"] "+json);
+	            Log.e("JSON Parser0", "Error parsing data " + e0.toString());
+	            try {
+	                jObj = new JSONObject(json.substring(1));
+	            } catch (Exception e1) {
+	                Log.e("JSON Parser1", "Error parsing data [" + e1.getMessage()+"] "+json);
+	                Log.e("JSON Parser1", "Error parsing data " + e1.toString());
+	                try {
+	                    jObj = new JSONObject(json.substring(2));
+	                } catch (Exception e2) {
+	                    Log.e("JSON Parser2", "Error parsing data [" + e2.getMessage()+"] "+json);
+	                    Log.e("JSON Parser2", "Error parsing data " + e2.toString());
+	                    try {
+	                        jObj = new JSONObject(json.substring(3));
+	                    } catch (Exception e3) {
+	                        Log.e("JSON Parser3", "Error parsing data [" + e3.getMessage()+"] "+json);
+	                        Log.e("JSON Parser3", "Error parsing data " + e3.toString());
+	                    }}}}
 	 
 	        // return JSON String
 	        return jObj;

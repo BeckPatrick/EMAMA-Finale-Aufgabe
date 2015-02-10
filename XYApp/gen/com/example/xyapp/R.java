@@ -1519,7 +1519,7 @@ containing a value of this type.
         public static final int powered_by_google_light=0x7f020079;
     }
     public static final class id {
-        public static final int LinearLayout1=0x7f0a0055;
+        public static final int LinearLayout1=0x7f0a0058;
         public static final int RelativeLayout1=0x7f0a0052;
         public static final int action_bar=0x7f0a0031;
         public static final int action_bar_activity_content=0x7f0a0001;
@@ -1532,11 +1532,13 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f0a0002;
         public static final int action_menu_presenter=0x7f0a0003;
         public static final int action_mode_close_button=0x7f0a0039;
-        public static final int action_settings=0x7f0a005a;
+        public static final int action_settings=0x7f0a005d;
         public static final int activity_chooser_view_content=0x7f0a003a;
         public static final int adjust_height=0x7f0a001a;
         public static final int adjust_width=0x7f0a001b;
         public static final int always=0x7f0a000f;
+        public static final int anzeigeKommentar=0x7f0a0056;
+        public static final int anzeigeKommentarInput=0x7f0a0055;
         public static final int beginning=0x7f0a0016;
         public static final int book_now=0x7f0a0028;
         public static final int buyButton=0x7f0a0024;
@@ -1554,7 +1556,8 @@ containing a value of this type.
         public static final int end=0x7f0a0017;
         public static final int expand_activities_button=0x7f0a003b;
         public static final int expanded_menu=0x7f0a0041;
-        public static final int foto=0x7f0a0057;
+        public static final int foto=0x7f0a005a;
+        public static final int foto_anzeigen=0x7f0a0057;
         public static final int grayscale=0x7f0a002d;
         public static final int holo_dark=0x7f0a001f;
         public static final int holo_light=0x7f0a0020;
@@ -1564,14 +1567,14 @@ containing a value of this type.
         public static final int icon=0x7f0a003f;
         public static final int ifRoom=0x7f0a0011;
         public static final int image=0x7f0a003c;
-        public static final int kommentar=0x7f0a0059;
+        public static final int kommentar=0x7f0a005c;
         public static final int listMode=0x7f0a0006;
         public static final int list_item=0x7f0a003e;
         public static final int map=0x7f0a0051;
         public static final int match_parent=0x7f0a0026;
         public static final int middle=0x7f0a0018;
         public static final int monochrome=0x7f0a002e;
-        public static final int name=0x7f0a0056;
+        public static final int name=0x7f0a0059;
         public static final int never=0x7f0a0012;
         public static final int none=0x7f0a0019;
         public static final int normal=0x7f0a0007;
@@ -1579,7 +1582,7 @@ containing a value of this type.
         public static final int progress_circular=0x7f0a0004;
         public static final int progress_horizontal=0x7f0a0005;
         public static final int radio=0x7f0a0044;
-        public static final int ratingBar1=0x7f0a0058;
+        public static final int ratingBar1=0x7f0a005b;
         public static final int sandbox=0x7f0a0022;
         public static final int satellite=0x7f0a001d;
         public static final int search_badge=0x7f0a0047;
@@ -1593,13 +1596,13 @@ containing a value of this type.
         public static final int search_src_text=0x7f0a004c;
         public static final int search_voice_btn=0x7f0a0050;
         public static final int selectionDetails=0x7f0a0025;
-        public static final int senden=0x7f0a005c;
+        public static final int senden=0x7f0a005f;
         public static final int shortcut=0x7f0a0043;
         public static final int showCustom=0x7f0a000b;
         public static final int showHome=0x7f0a000c;
         public static final int showTitle=0x7f0a000d;
         public static final int split_action_bar=0x7f0a0033;
-        public static final int statusPosten=0x7f0a005b;
+        public static final int statusPosten=0x7f0a005e;
         public static final int strict_sandbox=0x7f0a0023;
         public static final int submit_area=0x7f0a004e;
         public static final int tabMode=0x7f0a0008;
@@ -1671,7 +1674,8 @@ containing a value of this type.
     }
     public static final class menu {
         public static final int main=0x7f0d0000;
-        public static final int status_posten=0x7f0d0001;
+        public static final int status_anzeigen=0x7f0d0001;
+        public static final int status_posten=0x7f0d0002;
     }
     public static final class raw {
         public static final int gtm_analytics=0x7f050000;
@@ -1719,6 +1723,7 @@ containing a value of this type.
         public static final int abc_shareactionprovider_share_with_application=0x7f0b000b;
         public static final int accept=0x7f0b000f;
         public static final int action_settings=0x7f0b0033;
+        public static final int anzeigeKommentar=0x7f0b003a;
         public static final int app_name=0x7f0b0030;
         /**   Text for notification shown when the Android Wear apps needs to be updated. Only shown on the wearable. [CHAR LIMIT=NONE] 
          */
@@ -1822,6 +1827,7 @@ containing a value of this type.
         public static final int create_calendar_message=0x7f0b0012;
         public static final int create_calendar_title=0x7f0b0011;
         public static final int decline=0x7f0b0010;
+        public static final int foto_anzeigen=0x7f0b003b;
         public static final int foto_hinzufuegen=0x7f0b0035;
         public static final int hello_world=0x7f0b0032;
         public static final int kommentar=0x7f0b0036;
@@ -1831,6 +1837,7 @@ containing a value of this type.
         public static final int statusPosten=0x7f0b0031;
         public static final int store_picture_message=0x7f0b000e;
         public static final int store_picture_title=0x7f0b000d;
+        public static final int title_activity_status_anzeigen=0x7f0b003c;
         public static final int title_activity_status_posten=0x7f0b0038;
         /**  Text on a placeholder buy button when Google Play services is not
          available or up-to-date 

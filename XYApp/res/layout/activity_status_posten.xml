@@ -21,7 +21,7 @@
         android:layout_marginTop="42dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="@string/name_eingeben"
+        android:hint="@string/name_eingeben"
         android:textColor="#ffffff" />
 
     <Button
@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.26"
         android:ems="10"
-        android:text="@string/kommentar"
+        android:hint="@string/kommentar"
         android:textColor="#ffffff" >
 
         <requestFocus />

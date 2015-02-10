@@ -20,6 +20,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationManager;
@@ -40,17 +41,18 @@ import android.widget.Toast;
 
 public class StatusPosten extends Activity {
 	
-	private String name;
-	private String kommentar;
+	public String user ;
+	public String kommentar ;
 	private EditText editName;
 	private EditText editKommentar;
 	private Button fotoHinzufuegen;
 	private static int RESULT_LOAD_IMAGE = 1;
-	private Blob uriData;
+	private Uri uriData;
 	double mlong;
 	double mlat;
 	private ProgressDialog pDialog;
-	private static String url_saveStatus = "http://halloooo.byethost15.com/create.php";
+	private static String url_saveStatus = "http://halloooo.byethost15.com/input.php";
+	public Bitmap bitmap;
 	
 	private static final String TAG_SUCCESS = "success";
 	
@@ -67,12 +69,13 @@ public class StatusPosten extends Activity {
 		
 		
 
-		
-		/*LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE); 
+		//Speichern der aktuellen GPS Koordinaten
+		LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE); 
 		Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 		mlong = location.getLongitude();
-		mlat = location.getLatitude();*/
+		mlat = location.getLatitude();
 		
+		//Speichern des Bildes
 		fotoHinzufuegen.setOnClickListener(new View.OnClickListener() {
 
 		public void onClick(View v) {
@@ -116,7 +119,7 @@ public class StatusPosten extends Activity {
 		if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK
 				&& null != data) {
 			Uri selectedImage = data.getData();
-			uriData = (Blob) selectedImage;
+			uriData =   selectedImage;
 			String[] filePathColumn = { MediaStore.Images.Media.DATA };
 			Log.i("open" + "", MediaStore.Images.Media.DATA);
 
@@ -128,9 +131,13 @@ public class StatusPosten extends Activity {
 			String picturePath = cursor.getString(columnIndex);
 			Log.i("open", picturePath);
 			cursor.close();
+			
 			Toast.makeText(getApplicationContext(),
 					"Bild gespeichert", Toast.LENGTH_SHORT).show();
+		
 		}}
+	
+	//Status Senden 
 		
 	JSONParser jsonParser = new JSONParser();
 	
@@ -150,23 +157,23 @@ public class StatusPosten extends Activity {
         }
  
         
-         //Saving product
+        
       
         protected String doInBackground(String... args) {
  
         	editName = (EditText) findViewById(R.id.name);
-    		name = editName.getText().toString().trim();
+    		user = editName.getText().toString();
     		
     		editKommentar = (EditText) findViewById(R.id.kommentar);
-    		kommentar = editKommentar.getText().toString().trim();
+    		kommentar = editKommentar.getText().toString();
  
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("user", name));
+            params.add(new BasicNameValuePair("user", user));
             params.add(new BasicNameValuePair("kommentar", kommentar));
-            /*params.add(new BasicNameValuePair(TAG_BILD, uriData));
-            params.add(new BasicNameValuePair(TAG_STANDORTLO, mlong));
-            params.add(new BasicNameValuePair(TAG_STANDORTLA, mlat));*/
+            /*params.add(new BasicNameValuePair("", uriData));
+            params.add(new BasicNameValuePair("", mlong));
+            params.add(new BasicNameValuePair("", mlat));*/
 
             // sending modified data through http request
             // Notice that update product url accepts POST method
@@ -177,15 +184,19 @@ public class StatusPosten extends Activity {
  
             // check json success tag
             try {
-                int success = json.getInt(TAG_SUCCESS);
+                JSONArray successArray = json.getJSONArray(TAG_SUCCESS);
+                int success = successArray.getInt(0);
  
                 if (success == 1) {
                     // successfully updated
-                    
+                	
+                	Toast.makeText(getApplicationContext(),
+        					"Success", Toast.LENGTH_SHORT).show();
                     
                 } else{
-                	
-                
+                		
+                	Toast.makeText(getApplicationContext(),
+        					"Fail", Toast.LENGTH_SHORT).show();
                                     }
             } catch (JSONException e) {
                 e.printStackTrace();
